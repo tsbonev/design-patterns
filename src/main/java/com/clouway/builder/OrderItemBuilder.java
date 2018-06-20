@@ -31,7 +31,7 @@ public class OrderItemBuilder {
 
     public OrderItem createOrderItem(){
 
-        if(price == null || productName == null) throw new IllegalArgumentException();
+        if(price == null || productName == null) throw new IllegalStateException();
 
         return new OrderItem(productName, measureUnit, quantity, price);
     }

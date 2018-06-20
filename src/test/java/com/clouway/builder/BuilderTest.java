@@ -13,7 +13,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
-
 public class BuilderTest {
 
     OrderBuilder orderBuilder;
@@ -37,13 +36,11 @@ public class BuilderTest {
         orderBuilder = new OrderBuilder();
         orderBuilder.setCustomerName("John");
 
-
         orderBuilder.setCustomerName("John");
         orderBuilder.setCustomerAddress("New York");
         orderBuilder.setItems(items);
 
     }
-
 
     @Test
     public void orderIsLate() throws ParseException {

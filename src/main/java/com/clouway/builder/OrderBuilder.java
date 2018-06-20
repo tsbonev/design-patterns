@@ -54,9 +54,9 @@ public class OrderBuilder {
         if(customerName == null
                 || customerAddress == null
                 || orderDeliveryDate == null
-                || items == null) throw new IllegalArgumentException();
+                || items == null) throw new IllegalStateException();
 
-        if(orderDeliveryDate.before(orderCreationDate)) throw new IllegalArgumentException();
+        if(orderDeliveryDate.before(orderCreationDate)) throw new IllegalStateException();
 
         return new Order(orderId, customerName, customerAddress, orderCreationDate, orderDeliveryDate, items);
     }
