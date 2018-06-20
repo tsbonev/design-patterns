@@ -1,5 +1,6 @@
 package com.clouway.builder.order;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,16 @@ public final class Order {
     private Date orderCreationDate;
     private Date orderDeliveryDate;
     private List<OrderItem> items;
+
+    private boolean isDelivered = false;
+
+    public boolean isDelivered() {
+        return isDelivered;
+    }
+
+    public void deliver(){
+        this.isDelivered = true;
+    }
 
     public Long getOrderId() {
         return orderId;
@@ -30,6 +41,14 @@ public final class Order {
 
     public Date getOrderDeliveryDate() {
         return orderDeliveryDate;
+    }
+
+    public boolean orderIsLate(){
+
+        if(this.orderDeliveryDate.before(Date.from(Instant.now()))
+                && !isDelivered) return true;
+        else return false;
+
     }
 
     public List<OrderItem> getItems() {

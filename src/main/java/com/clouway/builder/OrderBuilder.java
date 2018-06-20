@@ -3,15 +3,17 @@ package com.clouway.builder;
 import com.clouway.builder.order.Order;
 import com.clouway.builder.order.OrderItem;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderBuilder {
 
-    private Long orderId;
+    private Long orderId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     private String customerName;
     private String customerAddress;
-    private Date orderCreationDate;
+    private Date orderCreationDate = Date.from(Instant.now());
     private Date orderDeliveryDate;
     private List<OrderItem> items;
 
@@ -48,6 +50,14 @@ public class OrderBuilder {
     }
 
     public Order createOrder(){
+
+        if(customerName == null
+                || customerAddress == null
+                || orderDeliveryDate == null
+                || items == null) throw new IllegalArgumentException();
+
+        if(orderDeliveryDate.before(orderCreationDate)) throw new IllegalArgumentException();
+
         return new Order(orderId, customerName, customerAddress, orderCreationDate, orderDeliveryDate, items);
     }
 }

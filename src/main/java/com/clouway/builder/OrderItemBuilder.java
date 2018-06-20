@@ -5,8 +5,8 @@ import com.clouway.builder.order.OrderItem;
 public class OrderItemBuilder {
 
     private String productName;
-    private String measureUnit;
-    private Double quantity;
+    private String measureUnit = "kilograms";
+    private Double quantity = 1.0;
     private Double price;
 
     public OrderItemBuilder setProductName(String productName){
@@ -30,6 +30,8 @@ public class OrderItemBuilder {
     }
 
     public OrderItem createOrderItem(){
+
+        if(price == null || productName == null) throw new IllegalArgumentException();
 
         return new OrderItem(productName, measureUnit, quantity, price);
     }
