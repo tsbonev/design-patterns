@@ -15,30 +15,17 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class BuilderTest {
 
-    OrderBuilder orderBuilder;
-    OrderItemBuilder itemBuilder;
     Order order;
     OrderItem item;
     List<OrderItem> items;
 
     @Before
-    public void setUpOrder() {
-
-        itemBuilder = new OrderItemBuilder();
-
-        itemBuilder.setPrice(12.0);
-        itemBuilder.setProductName("Lemon");
-        item = itemBuilder.createOrderItem();
+    public void setUpItems(){
 
         items = new ArrayList<>();
+        item = new OrderItem.Builder().setPrice(1.0)
+                .setProductName("Lemon").build();
         items.add(item);
-
-        orderBuilder = new OrderBuilder();
-        orderBuilder.setCustomerName("John");
-
-        orderBuilder.setCustomerName("John");
-        orderBuilder.setCustomerAddress("New York");
-        orderBuilder.setItems(items);
 
     }
 
@@ -49,10 +36,12 @@ public class BuilderTest {
         Date creation = sdf.parse("21/12/2012");
         Date delivery = sdf.parse("22/12/2012");
 
-        orderBuilder.setOrderCreationDate(creation);
-        orderBuilder.setOrderDeliveryDate(delivery);
-
-        order = orderBuilder.createOrder();
+        order = new Order.Builder().setOrderCreationDate(creation)
+                .setOrderDeliveryDate(delivery)
+                .setItems(items)
+                .setCustomerAddress("New York")
+                .setCustomerName("John")
+                .build();
 
         assertThat(order.orderIsLate(), is(true));
 
@@ -65,10 +54,12 @@ public class BuilderTest {
         Date creation = sdf.parse("21/12/2018");
         Date delivery = sdf.parse("22/12/2018");
 
-        orderBuilder.setOrderCreationDate(creation);
-        orderBuilder.setOrderDeliveryDate(delivery);
-
-        order = orderBuilder.createOrder();
+        order = new Order.Builder().setOrderCreationDate(creation)
+                .setOrderDeliveryDate(delivery)
+                .setItems(items)
+                .setCustomerAddress("New York")
+                .setCustomerName("John")
+                .build();
 
         assertThat(order.orderIsLate(), is(false));
     }
@@ -80,10 +71,12 @@ public class BuilderTest {
         Date creation = sdf.parse("15/05/2015");
         Date delivery = sdf.parse("22/12/2016");
 
-        orderBuilder.setOrderCreationDate(creation);
-        orderBuilder.setOrderDeliveryDate(delivery);
-
-        order = orderBuilder.createOrder();
+        order = new Order.Builder().setOrderCreationDate(creation)
+                .setOrderDeliveryDate(delivery)
+                .setItems(items)
+                .setCustomerAddress("New York")
+                .setCustomerName("John")
+                .build();
         order.deliver();
 
         assertThat(order.orderIsLate(), is(false));
